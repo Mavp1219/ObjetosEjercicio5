@@ -119,6 +119,17 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel7.setText("Saldo a Ingresar:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 100, 20));
+
+        txtingresarS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtingresarSActionPerformed(evt);
+            }
+        });
+        txtingresarS.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtingresarSKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtingresarS, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, 150, 30));
 
         cmdingresar.setText("Ingresarlo");
@@ -131,6 +142,12 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel8.setText("Saldo a Retirar:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 100, 20));
+
+        txtretirarS.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtretirarSKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtretirarS, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 330, 150, 30));
 
         cmdretirar.setText("Retirarlo");
@@ -192,12 +209,16 @@ public class Principal extends javax.swing.JFrame {
         try {
             if (txtcuenta.getText().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Cuenta vacia por favor llenarla", "Error", JOptionPane.ERROR_MESSAGE);
+                txtcuenta.requestFocusInWindow();
             } else if (txtidentificacion.getText().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Identificacion vacia por favor llenarla", "Error", JOptionPane.ERROR_MESSAGE);
+                txtidentificacion.requestFocusInWindow();
             } else if (txtsaldo.getText().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Saldo vacio por favor llenarla", "Error", JOptionPane.ERROR_MESSAGE);
+                txtsaldo.requestFocusInWindow();
             } else if (txtinteres.getText().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Interes vacio por favor llenarla", "Error", JOptionPane.ERROR_MESSAGE);
+                txtinteres.requestFocusInWindow();
             } else {
                 long cuenta, identificacion;
                 double saldo;
@@ -209,6 +230,7 @@ public class Principal extends javax.swing.JFrame {
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Ingrese bien sus datos", "Error", JOptionPane.ERROR_MESSAGE);
+            txtcuenta.requestFocusInWindow();
         }
     }//GEN-LAST:event_cmdcrearcActionPerformed
 
@@ -249,45 +271,71 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtinteresKeyTyped
 
     private void cmdingresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdingresarActionPerformed
-        if (txtingresarS.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Escriba el valor a ingresar de la cuenta", "Error", JOptionPane.ERROR_MESSAGE);
-            txtretirarS.selectAll();
-            txtretirarS.requestFocusInWindow();
-        } else {
-            int select = JOptionPane.showConfirmDialog(this, "Desea Ingresar ese saldo?", "Informacion", JOptionPane.YES_NO_OPTION);
-            if (select == 0) {
-                double ingreso;
-                ingreso = Double.parseDouble(txtingresarS.getText());
-                c.IngresarSaldo(ingreso);
-                JOptionPane.showMessageDialog(this, "Usted a ingresado :" + ingreso + " Pesos a su cuenta Bancaria", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-                txtdatos.setText(c.Mostrar());
-                txtingresarS.setText("");
-
+        try {
+            if (txtingresarS.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Escriba el valor a ingresar de la cuenta", "Error", JOptionPane.ERROR_MESSAGE);
+                txtingresarS.selectAll();
+                txtingresarS.requestFocusInWindow();
             } else {
-                JOptionPane.showMessageDialog(this, "Su saldo no a sido afectado");
+                int select = JOptionPane.showConfirmDialog(this, "Desea Ingresar ese saldo?", "Informacion", JOptionPane.YES_NO_OPTION);
+                if (select == 0) {
+                    double ingreso;
+                    ingreso = Double.parseDouble(txtingresarS.getText());
+                    c.IngresarSaldo(ingreso);
+                    JOptionPane.showMessageDialog(this, "Usted a ingresado :" + ingreso + " Pesos a su cuenta Bancaria", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                    txtdatos.setText(c.Mostrar());
+                    txtingresarS.setText("");
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Su saldo no a sido afectado");
+                }
             }
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "No puede ingresar un saldo sin haber creado una cuenta", "Error", JOptionPane.ERROR_MESSAGE);
+            txtcuenta.requestFocusInWindow();
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "No puede ingresar un saldo sin haber creado una cuenta", "Error", JOptionPane.ERROR_MESSAGE);
+            txtcuenta.requestFocusInWindow();
         }
     }//GEN-LAST:event_cmdingresarActionPerformed
 
     private void cmdretirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdretirarActionPerformed
-        if (txtingresarS.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Escriba el valor a retirar de la cuenta", "Error", JOptionPane.ERROR_MESSAGE);
-            txtretirarS.selectAll();
-            txtretirarS.requestFocusInWindow();
-        } else {
-            double egreso;
-            egreso = Double.parseDouble(txtingresarS.getText());
-            c.IngresarSaldo(egreso);
-            JOptionPane.showMessageDialog(this, "Usted a retirado :" + egreso + " Pesos a su cuenta Bancaria", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-            txtdatos.setText(c.Mostrar());
-            txtretirarS.setText("");
+        try {
+            if (txtretirarS.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Escriba el valor a retirar de la cuenta", "Error", JOptionPane.ERROR_MESSAGE);
+                txtretirarS.selectAll();
+                txtretirarS.requestFocusInWindow();
+            } else {
+                int Select = JOptionPane.showConfirmDialog(this, "Desea retirar ese valor de su cuenta bancaria?", "Informacion", JOptionPane.YES_NO_OPTION);
+                if (Select == 0) {
+                    double egreso;
+                    egreso = Double.parseDouble(txtingresarS.getText());
+                    c.IngresarSaldo(egreso);
+                    JOptionPane.showMessageDialog(this, "Usted a retirado :" + egreso + " Pesos a su cuenta Bancaria", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                    txtdatos.setText(c.Mostrar());
+                    txtretirarS.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Su saldo no a si afectado");
+                }
+            }
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "No puede retirar un saldo sin haber una cuenta", "Error", JOptionPane.ERROR_MESSAGE);
+            txtcuenta.requestFocusInWindow();
+        } catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "No puede retirar un saldo sin haber creado una cuenta", "Error", JOptionPane.ERROR_MESSAGE);
+            txtcuenta.requestFocusInWindow();
         }
     }//GEN-LAST:event_cmdretirarActionPerformed
 
     private void cmdmostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdmostrarActionPerformed
-        String mostrar;
-        mostrar = c.Mostrar();
-        txtdatos.setText(mostrar);
+        try {
+            String mostrar;
+            mostrar = c.Mostrar();
+            txtdatos.setText(mostrar);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "Datos Vacios por favor llenarlos");
+            txtcuenta.requestFocusInWindow();
+        }
     }//GEN-LAST:event_cmdmostrarActionPerformed
 
     private void cmdlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdlimpiarActionPerformed
@@ -302,11 +350,39 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_cmdlimpiarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        double interes;
-        interes = Double.parseDouble(txtinteres.getText());
-        c.ActualizarSaldo(interes);
-        JOptionPane.showMessageDialog(this, "Su saldo a sido actualizado");
+        try {
+            double interes;
+            interes = Double.parseDouble(txtinteres.getText());
+            c.ActualizarSaldo(interes);
+            JOptionPane.showMessageDialog(this, "Su saldo a sido actualizado");
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "Elementos vacios por favor llenarlos", "Error", JOptionPane.ERROR_MESSAGE);
+            txtcuenta.requestFocusInWindow();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "No puede actualizar datos sin tener una cuenta creada");
+            txtcuenta.requestFocusInWindow();
+        }
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void txtingresarSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtingresarSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtingresarSActionPerformed
+
+    private void txtingresarSKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtingresarSKeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtingresarSKeyTyped
+
+    private void txtretirarSKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtretirarSKeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtretirarSKeyTyped
 
     /**
      * @param args the command line arguments
