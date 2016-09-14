@@ -21,6 +21,8 @@ public class Principal extends javax.swing.JFrame {
 
     public Principal() {
         initComponents();
+
+        txtcuenta.requestFocusInWindow();
     }
 
     /**
@@ -197,15 +199,13 @@ public class Principal extends javax.swing.JFrame {
             } else if (txtinteres.getText().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Interes vacio por favor llenarla", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                int cuenta, saldo, interes;
-                String identificacion;
+                long cuenta, identificacion;
+                double saldo;
                 cuenta = Integer.parseInt(txtcuenta.getText());
-                identificacion = txtidentificacion.getText();
-                saldo = Integer.parseInt(txtsaldo.getText());
-                interes = Integer.parseInt(txtinteres.getText());
+                identificacion = Integer.parseInt(txtidentificacion.getText());
+                saldo = Double.parseDouble(txtsaldo.getText());
                 c = new Cuenta(cuenta, identificacion, saldo);
-
-                JOptionPane.showMessageDialog(this, "Cuenta creada exitosamente");
+                txtdatos.setText("Cuenta creada exitosamente");
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Ingrese bien sus datos", "Error", JOptionPane.ERROR_MESSAGE);
@@ -249,22 +249,23 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtinteresKeyTyped
 
     private void cmdingresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdingresarActionPerformed
-         if (txtingresarS.getText().trim().isEmpty()) {
+        if (txtingresarS.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Escriba el valor a ingresar de la cuenta", "Error", JOptionPane.ERROR_MESSAGE);
             txtretirarS.selectAll();
             txtretirarS.requestFocusInWindow();
-        }else {
-         int select = JOptionPane.showConfirmDialog(this, "Desea Ingresar ese saldo?", "Informacion", JOptionPane.YES_NO_OPTION);
-        if(select == 0){
-            double ingreso;
-            ingreso = Double.parseDouble(txtingresarS.getText());
-            c.Ingresar(ingreso);
-            JOptionPane.showMessageDialog(this, "Usted a retirado :" + ingreso + "Pesos a su cuenta Bancaria", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-            txtdatos.setText(c.Mostrar());
-            txtretirarS.setText("");
-        }else {
-            JOptionPane.showMessageDialog(this, "Su saldo no a sido afectado");
-        }
+        } else {
+            int select = JOptionPane.showConfirmDialog(this, "Desea Ingresar ese saldo?", "Informacion", JOptionPane.YES_NO_OPTION);
+            if (select == 0) {
+                double ingreso;
+                ingreso = Double.parseDouble(txtingresarS.getText());
+                c.IngresarSaldo(ingreso);
+                JOptionPane.showMessageDialog(this, "Usted a ingresado :" + ingreso + " Pesos a su cuenta Bancaria", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                txtdatos.setText(c.Mostrar());
+                txtingresarS.setText("");
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Su saldo no a sido afectado");
+            }
         }
     }//GEN-LAST:event_cmdingresarActionPerformed
 
@@ -276,21 +277,17 @@ public class Principal extends javax.swing.JFrame {
         } else {
             double egreso;
             egreso = Double.parseDouble(txtingresarS.getText());
-            c.Ingresar(egreso);
-            JOptionPane.showMessageDialog(this, "Usted a retirado :" + egreso + "Pesos a su cuenta Bancaria", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            c.IngresarSaldo(egreso);
+            JOptionPane.showMessageDialog(this, "Usted a retirado :" + egreso + " Pesos a su cuenta Bancaria", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             txtdatos.setText(c.Mostrar());
             txtretirarS.setText("");
         }
     }//GEN-LAST:event_cmdretirarActionPerformed
 
     private void cmdmostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdmostrarActionPerformed
-        int cuenta;
-        String identificacion;
-        double saldo;
-        cuenta = c.getN_cuenta();
-        identificacion = c.getN_dentificacion();
-        saldo = c.getSaldo();
-        txtdatos.setText(c.Mostrar());
+        String mostrar;
+        mostrar = c.Mostrar();
+        txtdatos.setText(mostrar);
     }//GEN-LAST:event_cmdmostrarActionPerformed
 
     private void cmdlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdlimpiarActionPerformed
@@ -301,11 +298,14 @@ public class Principal extends javax.swing.JFrame {
         txtretirarS.setText("");
         txtinteres.setText("");
         txtingresarS.setText("");
+        txtcuenta.requestFocusInWindow();
     }//GEN-LAST:event_cmdlimpiarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        txtdatos.setText(c.Mostrar());
-
+        double interes;
+        interes = Double.parseDouble(txtinteres.getText());
+        c.ActualizarSaldo(interes);
+        JOptionPane.showMessageDialog(this, "Su saldo a sido actualizado");
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     /**
