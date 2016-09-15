@@ -57,7 +57,7 @@ public class Principal extends javax.swing.JFrame {
         cmdmostrar = new javax.swing.JButton();
         cmdcrearc = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        btnActualizar = new javax.swing.JButton();
+        cmdactualizarS = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -138,7 +138,7 @@ public class Principal extends javax.swing.JFrame {
                 cmdingresarActionPerformed(evt);
             }
         });
-        jPanel1.add(cmdingresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 280, -1, -1));
+        jPanel1.add(cmdingresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 280, 90, 30));
 
         jLabel8.setText("Saldo a Retirar:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 100, 20));
@@ -156,7 +156,7 @@ public class Principal extends javax.swing.JFrame {
                 cmdretirarActionPerformed(evt);
             }
         });
-        jPanel1.add(cmdretirar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 323, 80, 30));
+        jPanel1.add(cmdretirar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, 80, 30));
 
         txtdatos.setEditable(false);
         txtdatos.setColumns(20);
@@ -192,13 +192,13 @@ public class Principal extends javax.swing.JFrame {
         jLabel9.setText("Datos Ingresados:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 140, 20));
 
-        btnActualizar.setText("Actualizar Saldo");
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+        cmdactualizarS.setText("Actualizar Saldo");
+        cmdactualizarS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
+                cmdactualizarSActionPerformed(evt);
             }
         });
-        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 120, 30));
+        jPanel1.add(cmdactualizarS, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 120, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 390));
 
@@ -349,7 +349,7 @@ public class Principal extends javax.swing.JFrame {
         txtcuenta.requestFocusInWindow();
     }//GEN-LAST:event_cmdlimpiarActionPerformed
 
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+    private void cmdactualizarSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdactualizarSActionPerformed
         try {
             double interes;
             interes = Double.parseDouble(txtinteres.getText());
@@ -362,7 +362,7 @@ public class Principal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No puede actualizar datos sin tener una cuenta creada");
             txtcuenta.requestFocusInWindow();
         }
-    }//GEN-LAST:event_btnActualizarActionPerformed
+    }//GEN-LAST:event_cmdactualizarSActionPerformed
 
     private void txtingresarSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtingresarSActionPerformed
         // TODO add your handling code here:
@@ -420,7 +420,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton cmdactualizarS;
     private javax.swing.JButton cmdcrearc;
     private javax.swing.JButton cmdingresar;
     private javax.swing.JButton cmdlimpiar;
