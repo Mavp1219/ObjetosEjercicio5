@@ -5,7 +5,7 @@
  */
 package interfaz;
 
-import clases.Cuenta;
+import clases.*;
 import javax.swing.JOptionPane;
 
 /**
@@ -156,7 +156,7 @@ public class Principal extends javax.swing.JFrame {
                 cmdretirarActionPerformed(evt);
             }
         });
-        jPanel1.add(cmdretirar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, -1, -1));
+        jPanel1.add(cmdretirar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 323, 80, 30));
 
         txtdatos.setEditable(false);
         txtdatos.setColumns(20);
@@ -309,7 +309,7 @@ public class Principal extends javax.swing.JFrame {
                 int Select = JOptionPane.showConfirmDialog(this, "Desea retirar ese valor de su cuenta bancaria?", "Informacion", JOptionPane.YES_NO_OPTION);
                 if (Select == 0) {
                     double egreso;
-                    egreso = Double.parseDouble(txtingresarS.getText());
+                    egreso = Double.parseDouble(txtretirarS.getText());
                     c.IngresarSaldo(egreso);
                     JOptionPane.showMessageDialog(this, "Usted a retirado :" + egreso + " Pesos a su cuenta Bancaria", "Informacion", JOptionPane.INFORMATION_MESSAGE);
                     txtdatos.setText(c.Mostrar());
