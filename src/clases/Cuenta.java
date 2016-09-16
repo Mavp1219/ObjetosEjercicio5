@@ -68,17 +68,17 @@ public class Cuenta {
         this.setSaldo(aux);
     }
     
-    public void RetirarSaldo(double egreso){
+    public void RetirarSaldo(double retirar){
          double aux;
-         aux = this.getSaldo() - egreso;
+         aux = this.getSaldo() - retirar;
          this.setSaldo(aux);
     }
     
     public String Mostrar(){
         String aux;
-        aux = "El número de su cuenta es: " +this.getN_cuenta()+"\n"+
-              "El número de su identificaión es: " +this.getN_identificacion()+"\n"+
-              "El saldo actual de su cuenta es: " +this.getSaldo();
+        aux = "Su numero cuenta es: " +this.getN_cuenta()+"\n"+
+              "Su numero identificaión es: " +this.getN_identificacion()+"\n"+
+              "El saldo actual en su cuenta es de: " +this.getSaldo();
         return aux;
     }
 
